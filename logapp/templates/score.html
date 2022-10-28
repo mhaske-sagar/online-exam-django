@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br><br>
+    <a type="button" style="text-decoration:none" href="/">Log Out</a>
+    <hr>
+    <style>
+        table,tr,td,th
+        {
+          border: 1px solid;
+          border-collapse: collapse;
+          padding: 5px;
+        }
+    </style>
+
+
+
+ 
+    
+    <h2>{{finalscore}} <span style="color:red ;">{{msg}}</span></h2>
+
+    <table>
+        <thead>
+            <th>Qno</th>
+            <th>Question</th>
+            <th>Correct Ans</th>
+            <th>Ans Selected</th>
+        </tr>
+    </thead>
+    <tr>
+        <tbody>
+        
+            {% for i in result %}
+            <tr>
+                <td>{{i.3}}</td>
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+            </tr>
+            {% endfor %}
+    </tbody>
+    </table>
+    
+    
+   
+      
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var xmlhttp;
+function views()
+        {
+            var qno=document.question.qno.value;
+            var subject=document.question.subject.value;
+            var data="?subject="+subject +"&qno="+qno;
+             xmlhttp=new XMLHttpRequest();
+            xmlhttp.onload=displaydata;
+            xmlhttp.open("get","/views" +data,true);
+            xmlhttp.send();
+
+        }
+function displaydata()
+        {
+            var data=xmlhttp.responseText;
+            alert(data)
+            var a=JSON.parse(data);
+         alert(a.qtext)
+
+            document.question.qtext.value=a.qtext;
+            document.question.A.value=a.A;
+            document.question.B.value=a.B;
+            document.question.C.value=a.C;
+            document.question.D.value=a.D;
+            document.question.ans.value=a.ans;
+
+
+
+        }
+
+    </script>
+    {{msg}}
+    <br><br>
+    <hr>
+    <form name="question">
+        Subject : <input type="text" name="subject" value="{{t.subject}}"><br><br>
+        Q.No.   : <input type="number" name="qno" value="{{t.qno}}" required><br><br>
+        Question: <input type="text"name="qtext" value="{{t.question}}"><br><br>
+              A : <input type="text" name="A" value="{{t.A}}"><br><br>
+              B : <input type="text" name="B" value="{{t.B}}"><br><br>
+              C : <input type="text" name="C" value="{{t.C}}"><br><br>
+              D : <input type="text" name="D" value="{{t.D}}"><br><br>
+            Ans : <input type="text" name="ans" value="{{t.ans}}"><br><br>
+
+              
+        
+        <input type="submit" value="Add" formaction="/add">
+        <input type="button" value="View" onclick="views()">
+        <input type="submit" value="Update" formaction="/update">
+        <input type="submit" value="Delete" formaction="/delete">
+        <input type="submit" value="this" formaction="/this"><br><br>
+        
+        
+        
+
+
+    </form>
+    <span style="color: green;">{{ms}}</span>
+    
+</body>
+</html>
+
+

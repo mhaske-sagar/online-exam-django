@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <style>
+        div{
+            border: 5px solid grey;
+            margin: auto;
+            width:25%;
+            padding:35px;
+            margin-top: 50px;
+            font-size: 18px;
+
+        }
+        body{
+            background-color: burlywood;
+        }
+        #a1
+        {
+            margin-left: 10%;
+        }
+        #a2
+        {
+            margin-right: -30%;
+        }
+        #a3
+        {
+            margin-left:35%;
+        }
+       #a4
+       {
+        margin-left:10%
+       }
+    </style>
+    </head>
+    <body onload="check()">
+        
+    
+<script>
+function check()
+{
+  var all=document.getElementsByTagName("span");
+  var radiobutton=document.getElementsByName("op");
+  for (var i=0;i<all.length;i++)
+  {
+    var old=document.myform.don.value;
+    if (all[i].innerText==old)
+    {
+        radiobutton[i].checked=true;
+        all[i].style.color='red';
+        break;
+    }
+  }
+}
+
+    var mh;
+    function currentans()
+    {
+        mh=new XMLHttpRequest();
+        var op=document.myform.op.value;
+        var ans=document.myform.ans.value;
+        var qtext=document.myform.qtext.value;
+        var qno=document.myform.qno.value;
+        
+        
+        var data="?qno="+qno+"&qtext="+qtext+"&op="+op+"&ans="+ans;
+        mh.open("get","/currentans"+data,true);
+        mh.send();
+    }
+    
+var xmlhttp
+    function ontime(){
+        xmlhttp= new XMLHttpRequest();
+        xmlhttp.onload=time;
+        xmlhttp.open("get",'/showtime',true);
+        xmlhttp.send();
+    }
+    function time()
+    {   var hrs=Math.floor(xmlhttp.responseText/3600).toString().padStart(2,'0');
+        var min1=Math.floor(xmlhttp.responseText/60).toString().padStart(2,'0');
+        var sec=(xmlhttp.responseText-min1*60).toString().padStart(2,"0");
+
+        document.myform.show.value=hrs+":"+min1 +":"+sec;
+        if  (xmlhttp.responseText==0)
+        {
+            
+            window.location.href='/cal';
+        }
+    }
+
+    setInterval(ontime,1000);
+
+
+
+    
+</script>
+UserName: <span style="color:red;font-size:30px">{{request.session.uname}}</span>
+
+
+<form name="myform">
+    <br>
+    <br>
+    Remaining Time: <input style="color:red;background-color:antiquewhite" type="text" name="show" value="" >
+   <hr>
+   <div>
+    Subjetc:<input type="text" name="subject" value="{{subject}}"><br><br>
+    Q.No.  :<input type="text" name="qno" value="{{qno}}"><br><br>
+    Question:<input type="text" name="qtext" value="{{qtext}}" ><br><br>
+    <input type="text" name="ans" value="{{ans}}" style="display:none ;"><br>
+    
+    &nbsp; &nbsp; A<input  type="radio"  name="op" value="{{A}}"  onclick="currentans()"><span>{{A}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    B<input type="radio"  name="op" value="{{B}}" onclick="currentans()"><span>{{B}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    C<input type="radio"  name="op" value="{{C}}"  onclick="currentans()"><span>{{C}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    D<input type="radio"  name="op" value="{{D}}"  onclick="currentans()"><span>{{D}}</span><br><br>
+     <input style="display:none" type="text" name="don" value="{{don}}"><br>
+    
+    <input id="a1" type="submit" value="Next"  formaction="/next">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="a2" type="submit" value="Previous"  formaction="/previous"><br><br>
+
+    <input id="a3" type="submit" value="submit" formaction="/cal"> <br><br>
+
+    
+    
+
+
+    
+
+</div>
+</form>
+
+</body>
+
+</html>

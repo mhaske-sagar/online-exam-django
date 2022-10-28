@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+         div{
+            border: 5px solid grey;
+            margin: auto;
+            width:35%;
+            padding:15px;
+            margin-top: 100px;
+            font-size: 15px;
+
+        }
+        body{
+            background-color: burlywood;
+        }
+        #s1{
+        
+            margin-left: 40%;
+        }
+        #s1:hover{
+            color: skyblue;
+            background-color: brown;
+
+        }
+        
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+    </script>
+</head>
+<body>
+    
+    var xmlhttp;
+function display()
+{
+    var name=document.formname.uname1.value;
+    var data="?sam="+name;
+    xmlhttp= new XMLHttpRequest();
+    xmlhttp.onload=displaydata;
+    xmlhttp.open("get","/ajax"+ data,true);
+    xmlhttp.send();
+}
+
+function displaydata()
+{
+        var data=xmlhttp.responseText;
+       
+        var obj=JSON.parse(data);
+        document.getElementById("s1").innerHTML=obj.msg;
+}
+
+function recheck()
+{
+    var u1=document.formname.upass1.value;
+    var u2=document.formname.upass2.value;
+    var msg;
+    
+
+    if (u1==u2)
+    {
+        document.getElementById("s2").innerHTML="<span style='color:green;'>password match</span>";
+    }
+    else
+    document.getElementById("s2").innerHTML="<span style='color:red;'>password does not match</span>";
+
+}
+function strength()
+{
+            var msg;
+            if (document.formname.upass1.value.length<=5)
+            {
+                document.getElementById("bb1").style.color="red";
+                msg="poor";
+            }
+            else if (document.formname.upass1.value.length<=10)
+            {
+                document.getElementById("bb1").style.color="yellow";
+                msg="good";
+            }
+            else
+            {
+                document.getElementById("bb1").style.color="green";
+                msg="excellent";
+            }
+        document.getElementById("bb1").innerHTML=msg;
+
+        }
+
+
+
+
+
+</script>    
+
+
+<br><br>
+<h3>Welcome User Please follow following process to Register</h3>
+<span style="color:red">*</span> Required
+
+
+<form action="/register" method="GET" name="formname">
+    <div>
+Username  :<input type="text" name="uname1" placeholder="enter user name here" onblur="display()">&nbsp;&nbsp;&nbsp;
+<span style="color:red">*</span><span id="s1" style="color: red;"></span><br><br>
+
+Password  :<input type="password" name="upass1" placeholder="enter password here" onkeyup="strength()"> <span id="bb1"></span> <br><br>
+Retype-Password  :<input type="password" name="upass2" placeholder="Re-enter password here" onblur="recheck()"> <span id="s2">  </span><br><br>
+Mobile No.:<input type="text" id="s2" name="mobno1"><span id="s4"></span><br><br>
+<input type="submit" id="s1" value="register">
+</div>
+</form>
+
+</body>
+
+
+</script>
+
+</html>
