@@ -351,6 +351,6 @@ class Acb(View):
     def get(self,request):
         name=request.GET['que']
         if name=='next':
-            return HttpResponse("<h1> this get in one fun </h1>")
+            return HttpResponse("<h1> this get in one next </h1>")
         else:
-            return HttpResponse("<h1> this post in one fun </h1>")
+            return HttpResponse("<h1> this post in one previous </h1>")
